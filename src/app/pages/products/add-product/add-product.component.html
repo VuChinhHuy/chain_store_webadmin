@@ -1,0 +1,112 @@
+
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="card" >
+      <div class="card-header">
+          <h5 class="modal-title">Sản phẩm mới - <span *ngIf="category"> {{category.name}}</span> </h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="productForm" novalidate (ngSubmit)="clickSubmitAddProduct(productForm.value)">
+
+            <h6 class="heading-small text-muted mb-4">Thông tin sản phẩm</h6>
+
+            <div class="form-group">
+              <label for="nameproduct">Tên sản phẩm </label><span class="text-red">*</span>
+              <input type="text" class="form-control" id="nameproduct" placeholder="" formControlName ="nameproduct">
+            </div>
+
+            <hr class="my-4" />
+
+            <h6 class="heading-small text-muted mb-4">Chi tiết sản phẩm</h6>
+            <div class="form-group">
+              <label for="price">Giá sản phẩm </label><span class="text-red">*</span>
+              <input type="text" class="form-control" id="price" placeholder="" formControlName ="price">
+            </div>
+
+            <div class="form-group">
+                <label for="details">Mô tả</label><span class="text-red">*</span>
+                <div class="btn-group ml-2 p-1">
+                  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{quanity_des}}</button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="selectQuanDes(1)" >1</a>
+                    <a class="dropdown-item" (click)="selectQuanDes(2)"> 2</a>
+                    <a class="dropdown-item" (click)="selectQuanDes(3)">3</a>
+                  </div>
+                </div>
+                  <div formArrayName="desc">
+                   <div *ngFor="let control of desFormArr.controls; index as i">
+
+                    <textarea class="form-control mt-2" id="note" rows="3"  [formControl]="desFormArr.controls[i]"></textarea>
+                  </div>
+                  </div>
+            </div>
+            <h6 class="heading-small text-muted mb-4">Hình ảnh</h6>
+            <div class="form-group">
+
+                <label for="details">Số lượng hình</label><span class="text-red">*</span>
+                <div class="btn-group ml-2 p-1">
+                  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{quanity_img}}</button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="selectQuanityImg(1)" >1</a>
+                    <a class="dropdown-item" (click)="selectQuanityImg(2)"> 2</a>
+                    <a class="dropdown-item" (click)="selectQuanityImg(3)">3</a>
+                    <a class="dropdown-item"  (click)="selectQuanityImg(4)">4</a>
+                    <a class="dropdown-item" (click)="selectQuanityImg(5)">5</a>
+                    <a class="dropdown-item" (click)="selectQuanityImg(6)">6</a>
+
+                  </div>
+                </div>
+                <div class="row" *ngIf="listimage">
+                <div *ngFor="let img of listimage">
+                  <div class="col">
+                        <div class="text-center mt-1">
+                          <img [src]="img.src" class="rounded" alt="..." height="300" width="300">
+                        </div>
+                        <div class= "d-flex justify-content-center align-items-end mt-1">
+                            <input  type="file" class="btn btn-sm btn-info mr-4" accept="image/*" (change)="processFile($event, img.number)">
+                        </div>
+                </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="details">Đối tác - Thương hiệu</label><span class="text-red">*</span>
+              <ng-autocomplete
+              [data]="partner"
+              [searchKeyword]="keyword"
+
+              formControlName ="partner"
+
+              [itemTemplate]="itemTemplate"
+              [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.name"></a>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+
+            <hr class="my-4" />
+            <div class="form-group">
+              <label for="note">Ghi chú</label>
+              <textarea class="form-control" id="note" rows="3" formControlName ="note"></textarea>
+            </div>
+            <div class="row justify-content-md-center">
+
+              <button type="button" class="btn btn-secondary">Huỷ </button>
+              <button type="submit" class="btn btn-success">Lưu lại</button>
+            </div>
+
+        </form>
+      </div>
+  </div>
+</div>

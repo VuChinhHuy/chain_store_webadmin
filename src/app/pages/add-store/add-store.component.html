@@ -1,0 +1,162 @@
+
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    
+</div>
+<div class="container-fluid mt--7">
+    <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Thêm chi cửa hàng, chi nhánh mới</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="addStore" novalidate (ngSubmit)="clickSaveStore(addStore.value)">
+              
+                <div class="form-group">
+                  <label for="namestore">Tên chi nhánh </label><span class="text-red">*</span>
+                  <input type="text" class="form-control" id="namestore" placeholder="Choco - Linh Trung" formControlName ="namestore">
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Địa chỉ</h6>
+                <div class="form-group">
+                    <label for="id-so-nha-duong">Số nhà, đường</label><span class="text-red">*</span>
+                    <input type="text" class="form-control" id="id-so-nha-duong" name="so-nha-duong" placeholder="Số ..." formControlName ="street">
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-city">Tỉnh, Thành phố</label><span class="text-red">*</span>
+                      <!-- <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="Thành phố..." > -->
+                    
+                        <ng-autocomplete
+                          [data]="provinces"
+                          [searchKeyword]="keyword"
+                          placeholder="Thành phố ..."
+                          formControlName ="city"
+                          (selected)='selectEventCity($event)'
+                          (inputCleared)='inputClearedCity($event)'
+                          [itemTemplate]="itemTemplate"
+                          [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+                      
+                        <ng-template #itemTemplate let-item>
+                          <a [innerHTML]="item.name"></a>
+                        </ng-template>
+                      
+                        <ng-template #notFoundTemplate let-notFound>
+                          <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                      
+                      
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-district">Thị xã, Quận huyện </label><span class="text-red">*</span>
+                      <!-- <input type="text" id="input-district" class="form-control form-control-alternative" placeholder="Quận..."> -->
+                      <ng-autocomplete
+                      [data]="district"
+                      [searchKeyword]="keyword"
+                      placeholder="Quận ..."
+                      formControlName ="district"
+                      (selected)='selectEventDistrict($event)'
+                      (inputCleared)='inputClearedDistrict($event)'
+                      [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+                  
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.name"></a>
+                    </ng-template>
+                  
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-sub-district">Xã, Phường</label><span class="text-red">*</span>
+                      <!-- <input type="number" id="input-sub-district" class="form-control form-control-alternative" placeholder="Phường ..."> -->
+                      <ng-autocomplete
+                      [data]="ward"
+                      [searchKeyword]="keyword"
+                      placeholder="Phường ..."
+                      formControlName ="ward"
+                      (selected)='selectEventWard($event)'
+                      [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+                  
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.name"></a>
+                    </ng-template>
+                  
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                    </div>
+                  </div>
+                </div>
+                <h6 class="heading-small text-muted mb-4">Hệ toạ độ</h6>
+                <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <span class="text-red">*</span>
+                    <input type="text" class="form-control" id="lat" placeholder="" formControlName ="lat">
+                  </div>
+                </div>  
+                <div class="col">
+                  <div class="form-group">
+                    <span class="text-red">*</span>
+                    <input type="text" class="form-control" id="long" placeholder="" formControlName ="long">
+                  </div>
+                </div>
+                
+                </div>
+                <hr class="my-4" />
+                <!-- Manager -->
+                <div class="form-group">
+                  <label for="id-manager">Người quản lí</label>
+                  <!-- <input type="email" class="form-control" id="id-manager" name="manager" placeholder=""> -->
+                    <ng-autocomplete
+                      [data]="manager"
+                      [searchKeyword]="keyword"
+                      placeholder="Quản lí"
+                      formControlName ="managerstore"
+                      (selected)='selectEventManager($event)'
+                      [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+                  
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.name"></a>
+                    </ng-template>
+                  
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </div>
+                
+
+                <hr class="my-4" />
+                <div class="form-group">
+                  <label for="note">Ghi chú</label>
+                  <textarea class="form-control" id="note" rows="3" formControlName ="note"></textarea>
+                </div>
+                <div class="row justify-content-md-center">
+                  
+                  <button type="button" class="btn btn-secondary"(click)="clickReturn()">Huỷ </button>
+                  <button type="submit" class="btn btn-success">Lưu lại</button>
+                </div>
+                
+            </form>
+        </div>
+      </div>
+    
+</div>
+

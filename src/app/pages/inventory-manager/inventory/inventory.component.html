@@ -1,0 +1,21 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <div class="col-lg-9 col-md-10">
+          <div class="d-flex justify-content-between">
+            <h1 class="display-2 text-secondary text-uppercase d-none d-lg-inline-block" *ngIf ="store">
+              {{store.namestore}}</h1>
+          </div>
+          <p class="text-secondary " *ngIf ="store">
+            <span class="text-secondary"><i class="ni ni-square-pin"></i> Địa chỉ: </span>
+            {{store.address}}
+          </p>
+
+        </div>
+      </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+
+</div>

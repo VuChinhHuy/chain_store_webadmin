@@ -1,0 +1,151 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <div class="col-lg-9 col-md-10">
+          <div class="d-flex justify-content-between">
+            <h1 class="display-2 text-secondary text-uppercase d-none d-lg-inline-block" *ngIf ="store">
+              {{store.namestore}}</h1>
+          </div>
+          <p class="text-secondary " *ngIf ="store">
+            <span class="text-secondary"><i class="ni ni-square-pin"></i> Địa chỉ: </span>
+            {{store.address}}
+          </p>
+
+        </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="header bg-gradient-danger">
+
+      <div class="header-body">
+        <div class="nav-wrapper">
+          <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+              <li class="nav-item">
+                  <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-new-import" data-toggle="tab" href="#tab-new-import" role="tab" aria-controls="tab-new-import" aria-selected="true">Phiếu nhập mới</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link mb-sm-3 mb-md-0" id="tabs-list-import" data-toggle="tab" href="#tab-list-import" role="tab" aria-controls="tabs-list-import" aria-selected="false">Các phiếu nhập</a>
+              </li>
+          </ul>
+        </div>
+
+    </div>
+  </div>
+
+          <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="tab-new-import" role="tabpanel" aria-labelledby="tab-new-import">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title text-uppercase text-muted mb-0">Phiếu nhập kho mới</h4>
+                    </div>
+                    <div class="card-body">
+                      <form>
+                       <!-- form nhập -->
+                       <div class="row mb-0">
+
+                         <div class="col-6">
+                          <div class="form-group">
+                            <label >Sản phẩm</label><span class="text-red">*</span>
+                            <input type="text" class="form-control"  name="product">
+                          </div>
+                         </div>
+                         <div class="col-3">
+                          <div class="form-group">
+                            <label >Số lượng</label><span class="text-red">*</span>
+                            <input type="text" class="form-control"  name="product">
+                          </div>
+                         </div>
+                         <div class="col-3 d-flex align-items-center">
+                           <button class="btn btn-default ">Thêm</button>
+                         </div>
+                       </div>
+                      </form>
+
+                       <hr class="my-0" />
+                       <h6 class="heading-small text-muted my-3">Danh sách sản phẩm nhập</h6>
+                       <!-- danh sách  -->
+                       <div class="table-responsive my-3">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Sản phẩm</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Xoá</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr *ngFor="let product of productImport">
+
+                                    <th>
+
+                                    </th>
+                                    <td class="td-actions">
+                                        <input type="text">
+                                    </td>
+
+                                    <td class="td-actions">
+                                        <button class="btn btn-icon btn-sm btn-danger"  type="button" ><i class="ni ni-fat-remove pt-1"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                        <div class="row justify-content-md-center" *ngIf="productImport">
+
+                          <button type="button" class="btn btn-success">Lưu lại</button>
+                          <button type="button" class="btn btn-info">Lưu và in </button>
+                          <button type="button" class="btn btn-secondary">Huỷ </button>
+
+                        </div>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="tab-pane fade" id="tab-list-import" role="tabpanel" aria-labelledby="tab-list-import">
+                <div class="card bg-secondary shadow">
+                  <div class="card-header">
+                    <h4 class="card-title text-uppercase text-muted mb-0">Các phiếu đã nhập</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table align-items-center table-flush">
+                          <thead class="thead-light">
+                              <tr>
+                                  <th scope="col">STT</th>
+                                  <th scope="col">Ngày nhập</th>
+                                  <th scope="col">Số lượng</th>
+                              </tr>
+                          </thead>
+                          <tbody >
+                              <tr *ngFor="let product of productImport">
+
+                                  <th>
+
+                                  </th>
+                                  <td class="td-actions">
+                                      <input type="text">
+                                  </td>
+
+                                  <td class="td-actions">
+                                      <button class="btn btn-icon btn-sm btn-danger"  type="button" ><i class="ni ni-fat-remove pt-1"></i>
+                                      </button>
+                                  </td>
+                              </tr>
+
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+</div>

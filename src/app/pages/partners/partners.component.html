@@ -1,0 +1,201 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+        </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+    <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+            <div class="d-flex justify-content-between">
+                <h4 class="card-title text-uppercase text-muted mb-0">Danh sách đối tác</h4>
+                <button class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#exampleModal"> <span><i class="ni ni-fat-add"></i></span> Đối tác mới </button>
+
+                <div class="modal" tabindex="-1" id="exampleModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Đối tác mới</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form [formGroup]="addPartner" novalidate (ngSubmit)="clickSavePartnerForm(addPartner.value)">
+
+                        <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="form-group">
+                                            <label for="name_partners">Tên đối tác </label><span class="text-red">*</span>
+                                            <input type="text" class="form-control" id="name_partner" placeholder="Choco - Linh Trung" formControlName="namepartner">
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label for="logo">Logo </label>
+                                                    <input type="file" class="form-control" id="logo" placeholder="Choco - Linh Trung" accept="image/*" (change)="processFile($event)" >
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <img [src]="image" class="rounded-circle" width="70" height="70" >
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-4" />
+                                <!-- Address -->
+                                <h6 class="heading-small text-muted mb-4">Địa chỉ</h6>
+                                <div class="form-group">
+                                    <label for="id-so-nha-duong">Số nhà, đường</label><span class="text-red">*</span>
+                                    <input type="text" class="form-control" id="id-so-nha-duong" name="so-nha-duong" placeholder="Số ..." formControlName="street">
+                                </div>
+                
+                                <div class="row">
+                                  <div class="col-lg-4">
+                                    <div class="form-group">
+                                      <label class="form-control-label" for="input-city">Tỉnh, Thành phố</label><span class="text-red">*</span>
+                                      <!-- <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="Thành phố..." > -->
+                                    
+                                        <ng-autocomplete
+                                          [data]="provinces"
+                                          [searchKeyword]="keyword"
+                                          placeholder="Thành phố ..."
+                                          formControlName="city"
+                                          (selected)='selectEventCity($event)'
+                                          (inputCleared)='inputClearedCity($event)'
+                                          [itemTemplate]="itemTemplate"
+                                          [notFoundTemplate]="notFoundTemplate">
+                                        </ng-autocomplete>
+                                      
+                                        <ng-template #itemTemplate let-item>
+                                          <a [innerHTML]="item.name"></a>
+                                        </ng-template>
+                                      
+                                        <ng-template #notFoundTemplate let-notFound>
+                                          <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                      
+                                      
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-4">
+                                    <div class="form-group">
+                                      <label class="form-control-label" for="input-district">Thị xã, Quận huyện </label><span class="text-red">*</span>
+                                      <!-- <input type="text" id="input-district" class="form-control form-control-alternative" placeholder="Quận..."> -->
+                                      <ng-autocomplete
+                                      [data]="district"
+                                      [searchKeyword]="keyword"
+                                      placeholder="Quận ..."
+                                      formControlName="district"
+                                      (selected)='selectEventDistrict($event)'
+                                      (inputCleared)='inputClearedDistrict($event)'
+                                      [itemTemplate]="itemTemplate"
+                                      [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+                                  
+                                    <ng-template #itemTemplate let-item>
+                                      <a [innerHTML]="item.name"></a>
+                                    </ng-template>
+                                  
+                                    <ng-template #notFoundTemplate let-notFound>
+                                      <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-4">
+                                    <div class="form-group">
+                                      <label class="form-control-label" for="input-sub-district">Xã, Phường</label><span class="text-red">*</span>
+                                      <!-- <input type="number" id="input-sub-district" class="form-control form-control-alternative" placeholder="Phường ..."> -->
+                                      <ng-autocomplete
+                                      [data]="ward"
+                                      [searchKeyword]="keyword"
+                                      placeholder="Phường ..."
+                                      formControlName="ward"
+                                      [itemTemplate]="itemTemplate"
+                                      [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+                                  
+                                    <ng-template #itemTemplate let-item>
+                                      <a [innerHTML]="item.name"></a>
+                                    </ng-template>
+                                  
+                                    <ng-template #notFoundTemplate let-notFound>
+                                      <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                    </div>
+                                  </div>
+                                </div>
+                        
+                               
+                
+                                <hr class="my-4" />
+                                <div class="form-group">
+                                  <label for="note">Ghi chú</label>
+                                  <textarea class="form-control" id="note" rows="3" formControlName="note"></textarea>
+                                </div>
+                                
+                                
+                            
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary">Lưu lại</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Tên - Thương hiệu</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Sửa</th>
+                        <th scope="col">Xoá</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let partner of listPartner">
+                        <th scope="row">
+                        <div class="media align-items-center">
+                            <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                            <img alt="Image placeholder" [src]="partner.logo">
+                            </a>
+                            <div class="media-body">
+                            <span class="mb-0 text-sm">{{partner.name}}</span>
+                            </div>
+                        </div>
+                        </th>   
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <span class="mr-2">{{partner.address}}</span>
+                                
+                              </div>
+                        </td>
+                        <td class="td-actions">
+                            <button class="btn btn-sm btn-warning btn-icon"  type="button"  ><i class="ni ni-settings-gear-65 pt-1"></i> 
+                            </button>
+                        </td>
+                        <td class="td-actions">
+                            <button class="btn btn-icon btn-sm btn-danger"  type="button"><i class="ni ni-fat-remove pt-1"></i> 
+                            </button>
+                        </td>
+
+                    </tr>
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

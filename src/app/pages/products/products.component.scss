@@ -1,0 +1,16 @@
+
+tr:hover {background-color: #17a3b852;}
+table tr.selected-category{
+    background-color: #dc3546dd;
+    color: #fff;
+    text-shadow: 0 0px 1px #f4f5f7;
+ }
+
+table  tr td.describe
+{
+  max-width: 10rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+}
