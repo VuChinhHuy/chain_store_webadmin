@@ -51,17 +51,33 @@
                          <div class="col-6">
                           <div class="form-group">
                             <label >Sản phẩm</label><span class="text-red">*</span>
-                            <input type="text" class="form-control"  name="product">
+                            <!-- <input type="text" class="form-control"  name="product"> -->
+                            <ng-autocomplete
+                              [data]="product"
+                              [searchKeyword]="keyword"
+                              placeholder="Sản phẩm"
+                              (selected)='selectProduct($event)'
+                              [itemTemplate]="itemTemplate"
+                              (inputCleared)='inputClearedProduct($event)'
+                              [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                              <a [innerHTML]="item.name"></a>
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate let-notFound>
+                              <div [innerHTML]="notFound"></div>
+                            </ng-template>
                           </div>
                          </div>
                          <div class="col-3">
                           <div class="form-group">
                             <label >Số lượng</label><span class="text-red">*</span>
-                            <input type="text" class="form-control"  name="product">
+                            <input type="number" [(ngModel)]="count" class="form-control"  name="product">
                           </div>
                          </div>
                          <div class="col-3 d-flex align-items-center">
-                           <button class="btn btn-default ">Thêm</button>
+                           <button class="btn btn-default " (click)="eventButtonAdd()">Thêm</button>
                          </div>
                        </div>
                       </form>
@@ -80,17 +96,30 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr *ngFor="let product of productImport">
-
+                                <tr *ngFor="let product of productImport; let i = index">
+                                  <th>
+                                    {{i+1}}
+                                  </th>
                                     <th>
+                                      <div class="media align-items-center">
+                                        <div class="avatar-group" >
+                                          <a *ngFor="let img of product.product.image" class="avatar avatar-sm" data-toggle="tooltip">
+                                          <img alt="{{img.alt}}" [src]="img.src" class="rounded-circle">
+                                          </a>
+
+                                      </div>
+                                        <div class="media-body">
+                                        <span class="mb-0 text-sm">{{product.product.name}}</span>
+                                        </div>
+                                    </div>
 
                                     </th>
                                     <td class="td-actions">
-                                        <input type="text">
+                                        <input type="text" [(ngModel)]="product.count">
                                     </td>
 
                                     <td class="td-actions">
-                                        <button class="btn btn-icon btn-sm btn-danger"  type="button" ><i class="ni ni-fat-remove pt-1"></i>
+                                        <button class="btn btn-icon btn-sm btn-danger" (click)="removeProduct(i)" type="button" ><i class="ni ni-fat-remove pt-1"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -100,8 +129,8 @@
                     </div>
                         <div class="row justify-content-md-center" *ngIf="productImport">
 
-                          <button type="button" class="btn btn-success">Lưu lại</button>
-                          <button type="button" class="btn btn-info">Lưu và in </button>
+                          <button type="button" class="btn btn-success" (click)="saveImportInventory()">Lưu lại</button>
+                          <button type="button" class="btn btn-info" (click)="exportExcel()">Lưu và in </button>
                           <button type="button" class="btn btn-secondary">Huỷ </button>
 
                         </div>
@@ -116,32 +145,71 @@
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                      <table class="table align-items-center table-flush">
+                      <table class="table align-items-center table-flush  table-condensed table-striped">
                           <thead class="thead-light">
                               <tr>
                                   <th scope="col">STT</th>
                                   <th scope="col">Ngày nhập</th>
-                                  <th scope="col">Số lượng</th>
+                                  <th scope="col"></th>
                               </tr>
                           </thead>
                           <tbody >
-                              <tr *ngFor="let product of productImport">
+                            <ng-container *ngFor="let inventory of importInvetory;let i = index;">
+                              <tr >
 
                                   <th>
-
+                                    {{i+1}}
                                   </th>
                                   <td class="td-actions">
-                                      <input type="text">
+                                      {{inventory.create_at | date: 'dd/MM/yyyy'}}
                                   </td>
-
-                                  <td class="td-actions">
-                                      <button class="btn btn-icon btn-sm btn-danger"  type="button" ><i class="ni ni-fat-remove pt-1"></i>
-                                      </button>
+                                  <td>
+                                      <a class="btn btn-outline-secondary btn-sm" data-toggle="collapse"  href="#col-{{i}}"><span class="fa fa-eye"></span></a>
                                   </td>
-                              </tr>
+                                </tr>
+                              <tr>
+                                <td colspan="12" class="hiddenRow">
+                                  <div class="accordian-body collapse" id="col-{{i}}">
+                                  <table class="table align-items-center table-flush ">
+                                          <thead>
+                                            <tr >
+                                              <th scope="col">STT</th>
+                                              <th scope="col">Sản phẩm</th>
+                                              <th scope="col">Số lượng</th>
+                                            </tr>
+                                          </thead>
 
+                                          <tbody class="bg-secondary">
+
+                                            <tr class="bg-secondary" *ngFor="let product of inventory.productInventory;let ii = index">
+                                              <th>
+                                                {{ii+1}}
+                                              </th>
+                                                <th>
+                                                  <div class="media align-items-center">
+                                                    <div class="avatar-group" >
+                                                      <a *ngFor="let img of product.product.image" class="avatar avatar-sm" data-toggle="tooltip">
+                                                      <img alt="{{img.alt}}" [src]="img.src" class="rounded-circle">
+                                                      </a>
+
+                                                  </div>
+                                                    <div class="media-body">
+                                                    <span class="mb-0 text-sm">{{product.product.name}}</span>
+                                                    </div>
+                                                </div>
+
+                                                </th>
+                                                <td class="td-actions">
+                                                    {{product.count}}
+                                                </td>
+                                            </tr>
+                                          </tbody>
+                                    </table>
+                                  </div>
+                              </ng-container>
                           </tbody>
                       </table>
+
                   </div>
                 </div>
               </div>

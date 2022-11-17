@@ -12,6 +12,7 @@ import { ComponentsModule } from './components/components.module';
 import {TokenStorageService} from './service/token-storage.service';
 import { JwtModule } from "@auth0/angular-jwt";
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -54,7 +55,7 @@ export function tokenGetter() {
   ),
 
   ],
-  providers: [TokenStorageService],
+  providers: [TokenStorageService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

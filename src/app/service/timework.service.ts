@@ -15,11 +15,24 @@ export class TimeWorkService {
       return `${envAddress}/${route}`;
     }
 
-    getStore()
+    getTimeWork( idStore:string)
     {
-      return this.httpClient.get(this.createCompleteRoute("store",environment.urlAddress),{headers: this.headers});
+      return this.httpClient.get(this.createCompleteRoute("timework",environment.urlAddress),
+      {headers: this.headers,
+      params: {idStore: idStore}}
+      );
+    }
+
+    updateTimeWork(idStore: string,body:any)
+    {
+      return this.httpClient.put(this.createCompleteRoute("timework/"+idStore,environment.urlAddress), body,{headers: this.headers});
 
     }
+    createTimeWork(body: any)
+    {
+      return this.httpClient.post(this.createCompleteRoute("timework",environment.urlAddress), body,{headers: this.headers});
+    }
+
 
 
 }

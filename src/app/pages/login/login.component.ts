@@ -4,6 +4,7 @@ import {AuthService} from '../../service/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Account} from '../../models/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   private returnUrl: string | any;
   loginForm: FormGroup | any;
 
-  constructor(private authService: AuthService, private router: Router,private route: ActivatedRoute ) { }
+  constructor(private authService: AuthService, private router: Router,private route: ActivatedRoute,
+    private toastrService: ToastrService ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -39,7 +41,8 @@ export class LoginComponent implements OnInit {
          this.router.navigate([this.returnUrl]);
       },
         error:(err: HttpErrorResponse)=>{
-          console.log(err)
+          console.log(err);
+          this.toastrService.error("Đăng nhập không thành công");
         }
       })
   }

@@ -11,7 +11,7 @@
                 <h4 class="card-title text-uppercase text-muted mb-0">Danh sách đối tác</h4>
                 <button class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#exampleModal"> <span><i class="ni ni-fat-add"></i></span> Đối tác mới </button>
 
-                <div class="modal" tabindex="-1" id="exampleModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal fade in" tabindex="-1" id="exampleModal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" ng-show="isPopupVisible">
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -42,10 +42,10 @@
                                                 <img [src]="image" class="rounded-circle" width="70" height="70" >
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
-                                
+
                                 <hr class="my-4" />
                                 <!-- Address -->
                                 <h6 class="heading-small text-muted mb-4">Địa chỉ</h6>
@@ -53,13 +53,13 @@
                                     <label for="id-so-nha-duong">Số nhà, đường</label><span class="text-red">*</span>
                                     <input type="text" class="form-control" id="id-so-nha-duong" name="so-nha-duong" placeholder="Số ..." formControlName="street">
                                 </div>
-                
+
                                 <div class="row">
                                   <div class="col-lg-4">
                                     <div class="form-group">
                                       <label class="form-control-label" for="input-city">Tỉnh, Thành phố</label><span class="text-red">*</span>
                                       <!-- <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="Thành phố..." > -->
-                                    
+
                                         <ng-autocomplete
                                           [data]="provinces"
                                           [searchKeyword]="keyword"
@@ -70,16 +70,16 @@
                                           [itemTemplate]="itemTemplate"
                                           [notFoundTemplate]="notFoundTemplate">
                                         </ng-autocomplete>
-                                      
+
                                         <ng-template #itemTemplate let-item>
                                           <a [innerHTML]="item.name"></a>
                                         </ng-template>
-                                      
+
                                         <ng-template #notFoundTemplate let-notFound>
                                           <div [innerHTML]="notFound"></div>
                                         </ng-template>
-                                      
-                                      
+
+
                                     </div>
                                   </div>
                                   <div class="col-lg-4">
@@ -96,11 +96,11 @@
                                       [itemTemplate]="itemTemplate"
                                       [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
-                                  
+
                                     <ng-template #itemTemplate let-item>
                                       <a [innerHTML]="item.name"></a>
                                     </ng-template>
-                                  
+
                                     <ng-template #notFoundTemplate let-notFound>
                                       <div [innerHTML]="notFound"></div>
                                     </ng-template>
@@ -118,28 +118,28 @@
                                       [itemTemplate]="itemTemplate"
                                       [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
-                                  
+
                                     <ng-template #itemTemplate let-item>
                                       <a [innerHTML]="item.name"></a>
                                     </ng-template>
-                                  
+
                                     <ng-template #notFoundTemplate let-notFound>
                                       <div [innerHTML]="notFound"></div>
                                     </ng-template>
                                     </div>
                                   </div>
                                 </div>
-                        
-                               
-                
+
+
+
                                 <hr class="my-4" />
                                 <div class="form-group">
                                   <label for="note">Ghi chú</label>
                                   <textarea class="form-control" id="note" rows="3" formControlName="note"></textarea>
                                 </div>
-                                
-                                
-                            
+
+
+
                         </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-primary">Lưu lại</button>
@@ -174,24 +174,24 @@
                             <span class="mb-0 text-sm">{{partner.name}}</span>
                             </div>
                         </div>
-                        </th>   
+                        </th>
                         <td>
                             <div class="d-flex align-items-center">
                                 <span class="mr-2">{{partner.address}}</span>
-                                
+
                               </div>
                         </td>
                         <td class="td-actions">
-                            <button class="btn btn-sm btn-warning btn-icon"  type="button"  ><i class="ni ni-settings-gear-65 pt-1"></i> 
+                            <button class="btn btn-sm btn-warning btn-icon"  type="button"  ><i class="ni ni-settings-gear-65 pt-1"></i>
                             </button>
                         </td>
                         <td class="td-actions">
-                            <button class="btn btn-icon btn-sm btn-danger"  type="button"><i class="ni ni-fat-remove pt-1"></i> 
+                            <button class="btn btn-icon btn-sm btn-danger"  type="button"><i class="ni ni-fat-remove pt-1"></i>
                             </button>
                         </td>
 
                     </tr>
-                    
+
                     </tbody>
                 </table>
             </div>
