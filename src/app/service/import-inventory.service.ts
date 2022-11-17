@@ -29,4 +29,11 @@ export class ImportInventoryService {
     return this.httpClient.post(this.createCompleteRoute(this.urlPartner,environment.urlAddress), body,{headers: this.headers});
 
   }
+  // get product inventory
+  getProducInStore(idStore : any)
+  {
+    return this.httpClient.get(this.createCompleteRoute(this.urlPartner,environment.urlAddress)+"/inventory/"+idStore as string,{headers: this.headers});
+
+  }
+
 }

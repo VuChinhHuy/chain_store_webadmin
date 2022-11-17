@@ -98,7 +98,7 @@ export class ImportProductComponent implements OnInit {
       (data)=>{
         this.productImport = null;
         this.toastrService.success("Lưu thành công phiếu nhập!");
-        this.getImportInventory()
+        this.getImportInventory();
 
       },
       err =>{
@@ -131,5 +131,6 @@ export class ImportProductComponent implements OnInit {
 
 
   }
+
 
 }

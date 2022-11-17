@@ -13,9 +13,72 @@
           </p>
 
         </div>
+        </div>
       </div>
   </div>
+
 </div>
 <div class="container-fluid mt--7">
+  <div class="card bg-secondary shadow">
+    <div class="card-body">
+    <div class="table-responsive">
+      <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+              <tr>
+                  <th scope="col">STT</th>
+                  <th scope="col">Sản phẩm</th>
+                  <th scope="col">Số lượng</th>
+                  <th scope="col">Số lượng thực tế</th>
+                  <th scope="col">Trạng thái</th>
+              </tr>
+          </thead>
+          <tbody >
+              <tr *ngFor="let product of product; let i = index">
+                <th>
+                  {{i+1}}
+                </th>
+                  <th>
+                    <div class="media align-items-center">
+                      <div class="avatar-group" >
+                        <a *ngFor="let img of product.sanpham.product.image" class="avatar avatar-sm" data-toggle="tooltip">
+                        <img alt="{{img.alt}}" [src]="img.src" class="rounded-circle">
+                        </a>
 
+                    </div>
+                      <div class="media-body">
+                      <span class="mb-0 text-sm">{{product.sanpham.product.name}}</span>
+                      </div>
+                  </div>
+
+                  </th>
+                  <td>
+                    {{product.sanpham.count}}
+                  </td>
+                  <td class="td-actions">
+                      <input type="text" [(ngModel)]="product.countReal">
+                  </td>
+                  <td>
+                    <span *ngIf="product.sanpham.count == product.countReal;" class="text-success">
+                      <i class="ni ni-check-bold"></i> OK
+
+                    </span>
+
+                    <span *ngIf="product.sanpham.count != product.countReal;"   class="text-danger">
+                      <i class="fa fa-exclamation" aria-hidden="true"></i>                      Sai số lượng
+                    </span>
+
+                  </td>
+
+
+
+          </tbody>
+      </table>
+      <div class="row justify-content-md-center" *ngIf="product">
+
+        <button type="button" class="btn btn-success" >Sửa lại số lượng</button>
+
+      </div>
+    </div>
+    </div>
+  </div>
 </div>
