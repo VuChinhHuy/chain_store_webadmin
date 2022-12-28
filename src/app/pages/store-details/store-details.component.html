@@ -186,13 +186,55 @@
                           </div>
                       </div>
                     </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>
+                      <div *ngFor="let item of getCalendarWorkTimeShift(timework.name,Mon)">
+                        <div>
+                          {{item.staff.fullname}}
+                          </div>
+                        </div>
+                    </th>
+                    <th>
+                      <div *ngFor="let item of getCalendarWorkTimeShift(timework.name,Tue)">
+                        <div>
+                          {{item.staff.fullname}}
+                          </div>
+                        </div>
+                    </th>
+                    <th>
+                      <div *ngFor="let item of getCalendarWorkTimeShift(timework.name,Wed)">
+                        <div>
+                          {{item.staff.fullname}}
+                          </div>
+                        </div>
+                    </th>
+                    <th>
+                      <div *ngFor="let item of getCalendarWorkTimeShift(timework.name,Thru)">
+                        <div>
+                          {{item.staff.fullname}}
+                          </div>
+                        </div>
+                    </th>
+                    <th>
+                      <div *ngFor="let item of getCalendarWorkTimeShift(timework.name,Fri)">
+                        <div>
+                          {{item.staff.fullname}}
+                          </div>
+                        </div>
+                    </th>
+                    <th>
+                      <div *ngFor="let item of getCalendarWorkTimeShift(timework.name,Sat)">
+                        <div>
+                          {{item.staff.fullname}}
+                          </div>
+                        </div>
+                    </th>
+                    <th>
+                      <div *ngFor="let item of getCalendarWorkTimeShift(timework.name,Sun)">
+                        <div>
+                          {{item.staff.fullname}}
+                          </div>
+                        </div>
+                    </th>
 
                   </tr>
               </tbody>
@@ -379,8 +421,8 @@
                   </tr>
               </thead>
               <tbody *ngIf="arrayStaff">
-                  <tr *ngFor="let staff of arrayStaff" (click)="clickChooseStaff(staff.id)" class="tr-staff">
-                    <th scope="row">
+                  <tr *ngFor="let staff of arrayStaff"  class="tr-staff">
+                    <th (click)="clickChooseStaff(staff.id)" scope="row">
                       <div class="media align-items-center">
                           <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
                           <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
@@ -390,21 +432,17 @@
                           </div>
                       </div>
                       </th>
-                      <th>
+                      <th (click)="clickChooseStaff(staff.id)">
                         {{staff.birthday}}
                       </th>
-                      <th>
+                      <th (click)="clickChooseStaff(staff.id)">
                         {{staff.phone}}
                       </th>
-                      <th>
+                      <th (click)="clickChooseStaff(staff.id)">
                         {{staff.address}}
                       </th>
-                      <td class="td-actions">
-                        <button class="btn btn-sm btn-warning btn-icon"  type="button"  ><i class="ni ni-settings-gear-65 pt-1"></i>
-                        </button>
-                    </td>
                     <td class="td-actions">
-                        <button class="btn btn-icon btn-sm btn-danger"  type="button" (click)="deleteStaff(staff.id)"><i class="ni ni-fat-remove pt-1"></i>
+                        <button class="btn btn-icon btn-sm btn-danger"  type="button" (click)="deleteStaff(staff.id, staff.aaccountId)"><i class="ni ni-fat-remove pt-1"></i>
                         </button>
                     </td>
                   </tr>
@@ -415,25 +453,7 @@
 
 
       </div>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link"  tabindex="-1">
-              <i class="fa fa-angle-left"></i>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" >1</a></li>
-          <li class="page-item active"><a class="page-link" >2</a></li>
-          <li class="page-item"><a class="page-link">3</a></li>
-          <li class="page-item">
-            <a class="page-link" >
-              <i class="fa fa-angle-right"></i>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
       </div>
     </div>
 

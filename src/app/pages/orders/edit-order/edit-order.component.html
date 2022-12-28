@@ -1,0 +1,204 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+
+    </div>
+</div>
+<div class="container-fluid mt--7">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="modal-title">Chỉnh sửa đơn hàng</h5>
+        </div>
+        <!-- <form [formGroup]="addStaffForm" novalidate (ngSubmit)="addStaff(addStaffForm.value)"> -->
+        <form *ngIf="currentOrderDetail">
+            <div class="card-body">
+                <!-- Profile -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-3">
+                            <h6 class="heading-small text-muted mb-4">Nhân viên lập:</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6 class="heading-small text-muted mb-4">{{currentOrderDetail.orderStaff.fullname}}</h6>
+                        </div>
+                        <div class="col-7">
+                            <h6 class="heading-small text-muted mb-4"></h6>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                  <div class="row">
+                      <div class="col-3">
+                          <h6 class="heading-small text-muted mb-4">Khách hàng:</h6>
+                      </div>
+                      <div class="col-auto">
+
+                          <h6 *ngIf="currentOrderDetail.customer.first_name != null || currentOrderDetail.customer.last_name != null;  else elseBlock" class="heading-small text-muted mb-4">{{currentOrderDetail.customer.first_name}} {{currentOrderDetail.customer.last_name}}</h6>
+                          <ng-template #elseBlock>
+                            <h6  class="heading-small text-muted mb-4">Khách lẻ</h6>
+                          </ng-template>
+                      </div>
+
+                  </div>
+              </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-success">Phương thức thanh toán</button>
+                                <div class="btn-group" ngbDropdown role="group"
+                                    aria-label="Button group with nested dropdown">
+                                    <select (change)="selectedPaymentMethos($any($event.target).value)"
+                                        class=" btn btn-outline-primary form-control">
+                                        <option *ngFor="let PMethos of PaymentMethos" [value]="PMethos.value">
+                                            {{PMethos.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-success">Trạng thái đơn hàng</button>
+                                <div class="btn-group" ngbDropdown role="group"
+                                    aria-label="Button group with nested dropdown">
+                                    <select (change)="selectedBillStatus($any($event.target).value)"
+                                        class=" btn btn-outline-primary form-control">
+                                        <option *ngFor="let BStatus of BillStatus" [value]="BStatus.value">
+                                            {{BStatus.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Address -->
+                <div class="form-group">
+                    <div class=" row col-12">
+                        <div class="col-6">
+                            <label>
+                                <h6 class="heading-small text-muted mb-4">Chi tiết hóa đơn</h6>
+                            </label><span class="text-red">*{{message}}</span>
+                        </div>
+                        <div class="col-6">
+                            <div *ngIf="countNum && productName">
+                                <button class="btn btn-sm btn-default float-right" (click)="eventButtonAdd()">
+                                    <span><i class="ni ni-fat-add"></i></span> Thêm sản phẩm</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <!-- <input type="text" class="form-control"  name="product"> -->
+                                <ng-autocomplete [data]="AllProduct" [searchKeyword]="keyword" placeholder="Sản phẩm"
+                                    (selected)='selectProduct($event)' [itemTemplate]="itemTemplate"
+                                    (inputCleared)='inputClearedProduct($event)'>
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item.name"></a>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <input type="number" [(ngModel)]="countNum" class="form-control" name="countNum">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="container-fluid">
+                            <div class="card bg-secondary shadow">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table align-items-center table-flush">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col">Tên sản phẩm</th>
+                                                    <th scope="col" style="width: 100px;">Số lượng</th>
+                                                    <th scope="col">Đơn giá</th>
+                                                    <th scope="col">Loại sản phẩm</th>
+                                                    <th scope="col">Thành tiền</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl-bill-details">
+                                                <tr
+                                                    *ngFor="let products of productImport; let i = index; trackBy: trackByFn">
+                                                    <td class="td-actions">
+                                                        {{products.orderProductDetails.product.name}}
+                                                    </td>
+                                                    <td class="td-actions">
+                                                        <input type="text" style="width: 150px;"
+                                                            [(ngModel)]="productImport[i].orderProductDetails.count"
+                                                            (ngModelChange)="changeCount(i, productImport[i].orderProductDetails.count)"
+                                                            class="form-control" name="code_{{i}}">
+                                                    </td>
+                                                    <td class="td-actions">
+                                                        {{products.orderProductDetails.product.price}}
+                                                    </td>
+                                                    <td class="td-actions">
+                                                        {{products.orderProductDetails.product.category.name}}
+                                                    </td>
+                                                    <td class="td-actions">
+                                                        {{products.total}} - VNĐ
+                                                    </td>
+                                                    <td class="td-actions">
+                                                        <button class="btn btn-icon btn-sm btn-danger"
+                                                            (click)="removeProduct(i)" type="button">
+                                                            <i class="ni ni-fat-remove pt-1"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td class="td-actions">
+                                                        <!-- Thành tiền : <span class="text-red">
+                                                            {{getTotal()}} - VND*</span> -->
+                                                        Thành tiền : <span class="text-red">{{this.previsional}} -
+                                                            VND*</span>
+
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-10"> <input type="text" class="form-control" id="note"
+                            [(ngModel)]="customer.address" name="note">
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class=" row col-12">
+                    <div class="col-6">
+                        <label>
+                            <span>Ngày tạo - {{currentOrderDetail.orderDate | date: "dd/MM/yyyy"}}</span><br />
+                            <span>Chỉnh sửa gần nhất - {{currentOrderDetail.lastEditDate | date: "dd/MM/yyyy"}}</span>
+                        </label>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <button type="button" class="btn btn-secondary float-right"
+                                data-dismiss="modal">Huỷ</button>
+                            <button type="button" class="btn btn-primary float-right" (click)="updateBill()">Lưu
+                                lại</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

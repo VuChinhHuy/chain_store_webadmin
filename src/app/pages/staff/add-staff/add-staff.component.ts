@@ -132,6 +132,7 @@ export class AddStaffComponent implements OnInit {
       username: staff.username,
       password: staff.password,
       role: staff.coor.role,
+
       create_user: localStorage.getItem("username")?.toString() as string,
       update_user: ""
   }
@@ -146,6 +147,7 @@ export class AddStaffComponent implements OnInit {
         "address": staff.no_home + ','+ staff.ward.name +', '+ staff.district.name+', ' + staff.city.name,
         "accountId":res.id as string,
         "storeId" : this.idStore as string,
+        "create_at" : Date(),
         "create_user": localStorage.getItem("username")?.toString(),
         "update_user": ""
       } ;

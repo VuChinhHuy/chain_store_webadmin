@@ -1,0 +1,118 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+
+    </div>
+</div>
+<div class="container-fluid mt--7">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="modal-title">Tạo khách hàng mới</h5>
+        </div>
+        <form *ngIf="!isCustomerAdded">
+            <div class="card-body">
+                <!-- Profile -->
+
+                  <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-4">
+                              <label>
+                                <h6 class="heading-small text-muted mb-4">Họ</h6>
+                            </label><span class="text-red">*</span>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" id="first_name" [(ngModel)]="customer.first_name"
+                                    name="first_name">
+                                <span class="text-red">{{messagefirst_name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          <div class="row">
+                              <div class="col-4">
+                                <label>
+                                  <h6 class="heading-small text-muted mb-4">Tên</h6>
+                              </label><span class="text-red">*</span>
+                              </div>
+                              <div class="col-8"> <input type="text" class="form-control" id="last_name"
+                                      [(ngModel)]="customer.last_name" name="last_name">
+                                      <span class="text-red">{{messagelast_name}}</span>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                          <label>
+                            <h6 class="heading-small text-muted mb-4">Ngày sinh</h6>
+                        </label><span class="text-red">*</span>
+                        </div>
+                        <div class="col-4">
+
+                            <input type="date" class="form-control" id="birthday" [(ngModel)]="customer.birthday"
+                                name="birthday" />
+                                <span class="text-red">{{messagebirthday}}</span>
+
+                        </div>
+                        <div class="col-2">
+                          <label>
+                            <h6 class="heading-small text-muted mb-4">Số điện thoại</h6>
+                        </label><span class="text-red">*</span>
+                        </div>
+                        <div class="col-4">
+                            <input type="number" maxlength="10" class="form-control" id="phone"
+                                [(ngModel)]="customer.phone" name="phone">
+                                <span class="text-red">{{messagephone}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+
+                            <h6 class="heading-small text-muted mb-4">Ghi chú</h6>
+
+                        </div>
+                        <div class="col-10"> <input type="text" class="form-control" id="note"
+                                [(ngModel)]="customer.note" name="note">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Address -->
+                <div class="form-group">
+                    <label>
+                        <h6 class="heading-small text-muted mb-4">Địa chỉ</h6>
+                    </label><span class="text-red">*</span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="address" name="address"
+                            placeholder="Số nhà, đường ..."
+                            [(ngModel)]="customer.address">
+                            <span class="text-red">{{messageaddress}}</span>
+                        </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" (click)="createCustomer()">Lưu lại</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    routerLink="/customers">Huỷ</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $('#datepicker').datepicker();
+
+</script>

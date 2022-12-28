@@ -13,10 +13,13 @@ import { AddStoreComponent } from '../../pages/add-store/add-store.component';
 import { ProductsComponent } from '../../pages/products/products.component';
 import { PartnersComponent } from '../../pages/partners/partners.component';
 import { OrdersComponent } from '../../pages/orders/orders.component';
+import { EditOrderComponent } from '../../pages/orders/edit-order/edit-order.component';
+
 import { CustomersComponent } from '../../pages/customers/customers.component';
+import { AddCustomerComponent } from '../../pages/customers/add-customer/add-customer.component';
+import { EditCustomerComponent } from '../../pages/customers/edit-customer/edit-customer.component';
 import { StoreDetailsComponent } from '../../pages/store-details/store-details.component';
 import { CategoryComponent } from '../../pages/products/category/category.component';
-import { StaffComponent } from '../../pages/staff/staff.component';
 import { AddStaffComponent } from '../../pages/staff/add-staff/add-staff.component';
 import { ProfileComponent } from '../../pages/staff/profile/profile.component';
 import { AddProductComponent } from '../../pages/products/add-product/add-product.component';
@@ -49,10 +52,12 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     ProductsComponent,
     PartnersComponent,
     OrdersComponent,
+    EditOrderComponent,
     CustomersComponent,
+    AddCustomerComponent,
+    EditCustomerComponent,
     StoreDetailsComponent,
     CategoryComponent,
-    StaffComponent,
     AddStaffComponent,
     AddProductComponent,
     ImportProductComponent,

@@ -9,6 +9,7 @@ import { TimeShift } from 'src/app/models/timeshift.model';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class StoreDetailsComponent implements OnInit {
     private timeWorkService: TimeWorkService,
     private toastrService: ToastrService,
     private datepipe : DatePipe,
-
+    private accountService : AuthService,
      ) { }
 
   idStore :string |undefined;
@@ -35,6 +36,7 @@ export class StoreDetailsComponent implements OnInit {
   ismanger :boolean = false;
   timeWork : any;
   timeShift: TimeShift | undefined;
+  calendarTimeWork : any = [];
   timeWorkForm :FormGroup | any;
 
   // date week
@@ -96,15 +98,60 @@ export class StoreDetailsComponent implements OnInit {
     });
     this.staffService.getStaff(this.idStore as string).subscribe(data=>this.arrayStaff= data);
     this.loadTimeWork();
+    this.timeWorkService.getCalendarTimeWork(this.idStore as string).subscribe(
+      data => this.calendarTimeWork = data
+    );
 
+  }
+  getCalendarWorkTimeShift(shift : string, dateTime : any): any {
+    var result : any = [];
+    var calendarDate =  this.calendarTimeWork.filter((x : any)=> this.datepipe.transform(x['time'],'dd/MM/yyyy')== dateTime );
+    for(var item of calendarDate)
+    {
+      for (var time of item.timeshift)
+      {
+        if(time.timeShift.name === shift)
+        {
+          result.push(time);
+        }
+      }
+
+    }
+    return result;
   }
   clickChooseStaff(idStaff: string)
   {
     this.router.navigate(["chain-store/detail/",this.idStore,idStaff]);
   }
 
-  deleteStaff(id:string)
+  deleteStaff(id:string,accountId : string)
   {
+    var isDeletd = false;
+
+    this.accountService.deleteAccount(accountId).subscribe({
+      next : (res:any) =>{
+        isDeletd = true;
+      },
+      error:(err: HttpErrorResponse)=>{
+        console.log(err);
+        isDeletd = false;
+      }
+    })
+    this.staffService.RemoveStaffAsync(id).subscribe({
+      next : (res:any) =>{
+        isDeletd = true;
+      },
+      error:(err: HttpErrorResponse)=>{
+        console.log(err);
+        isDeletd = false;
+      }
+    })
+    if(isDeletd)
+    {
+      this.toastrService.success('Thêm thành công');
+      this.staffService.getStaff(this.idStore as string).subscribe(data=>this.arrayStaff= data);
+
+    }
 
   }
 

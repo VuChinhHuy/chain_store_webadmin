@@ -33,6 +33,10 @@ export class TimeWorkService {
       return this.httpClient.post(this.createCompleteRoute("timework",environment.urlAddress), body,{headers: this.headers});
     }
 
+    getCalendarTimeWork(idStore: string)
+    {
+      return this.httpClient.get(this.createCompleteRoute("calendarwork/calanderinweek/"+ idStore, environment.urlAddress),{headers: this.headers});
+    }
 
 
 }
