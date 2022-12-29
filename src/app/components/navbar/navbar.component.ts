@@ -15,16 +15,18 @@ export class NavbarComponent implements OnInit {
   constructor(location: Location,  private element: ElementRef, private router: Router) {
     this.location = location;
   }
-
+  username : any;
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.username = localStorage.getItem('username');
+
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if(titlee.charAt(0) === '#'){
-      
+
       titlee = titlee.slice( 1 );
-      
+
     }
     if( titlee.includes("/"))
     {
@@ -40,14 +42,14 @@ export class NavbarComponent implements OnInit {
     }
     // return 'Dashboard';
     return titlee;
-    
+
   }
   getRout(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if(titlee.charAt(0) === '#'){
-      
+
       titlee = titlee.slice( 1 );
-      
+
     }
     if( titlee.includes("/"))
     {

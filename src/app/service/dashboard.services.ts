@@ -37,15 +37,19 @@ export class DashboardService {
       { headers: this.headers }).pipe(catchError(this.handleError));
   }
   getRevenueByWeek(startDate:any, endDate:any): Observable<any> {
-    return this.httpClient.get(this.createCompleteRoute(`${this.urlPartner}/${"RevenueByWeek"}/?startDate=${startDate}&&endDate=${endDate}`, 
+    return this.httpClient.get(this.createCompleteRoute(`${this.urlPartner}/${"RevenueByWeek"}/?startDate=${startDate}&&endDate=${endDate}`,
     environment.urlAddress),{ headers: this.headers }).pipe(catchError(this.handleError));
   }
   GetCalculateLastMonth(): Observable<any> {
-    return this.httpClient.get(this.createCompleteRoute(`${this.urlPartner}/${"GetCalculateLastMonth"}`, 
+    return this.httpClient.get(this.createCompleteRoute(`${this.urlPartner}/${"GetCalculateLastMonth"}`,
     environment.urlAddress),{ headers: this.headers }).pipe(catchError(this.handleError));
   }
   GetBetSellingProduct(): Observable<any> {
-    return this.httpClient.get(this.createCompleteRoute(`${this.urlPartner}/${"GetBetSellingProduct"}`, 
+    return this.httpClient.get(this.createCompleteRoute(`${this.urlPartner}/${"GetBetSellingProduct"}`,
+    environment.urlAddress),{ headers: this.headers }).pipe(catchError(this.handleError));
+  }
+  GetRevenueForStore(): Observable<any> {
+    return this.httpClient.get(this.createCompleteRoute(`${this.urlPartner}/${"GetRevenueForStore"}`,
     environment.urlAddress),{ headers: this.headers }).pipe(catchError(this.handleError));
   }
 }

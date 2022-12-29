@@ -126,32 +126,31 @@ export class StoreDetailsComponent implements OnInit {
 
   deleteStaff(id:string,accountId : string)
   {
-    var isDeletd = false;
 
     this.accountService.deleteAccount(accountId).subscribe({
       next : (res:any) =>{
-        isDeletd = true;
+
+        this.staffService.getStaff(this.idStore as string).subscribe(data=>this.arrayStaff= data);
+
       },
       error:(err: HttpErrorResponse)=>{
         console.log(err);
-        isDeletd = false;
       }
-    })
+    });
+
     this.staffService.RemoveStaffAsync(id).subscribe({
       next : (res:any) =>{
-        isDeletd = true;
+
+      this.staffService.getStaff(this.idStore as string).subscribe(data=>this.arrayStaff= data);
+
       },
       error:(err: HttpErrorResponse)=>{
         console.log(err);
-        isDeletd = false;
+
       }
     })
-    if(isDeletd)
-    {
-      this.toastrService.success('Thêm thành công');
-      this.staffService.getStaff(this.idStore as string).subscribe(data=>this.arrayStaff= data);
 
-    }
+
 
   }
 

@@ -18,6 +18,7 @@ export class AddStoreComponent implements OnInit {
   ward:any;
   manager:any;
   addStore : FormGroup | any;
+
   constructor(private storeService: StoreService,private addressService: AddressService,private staffService: StaffService,private router: Router,
     private toastrService: ToastrService) { }
 
@@ -34,42 +35,36 @@ export class AddStoreComponent implements OnInit {
       ward: new FormControl("", [Validators.required]),
       lat: new FormControl("", [Validators.required]),
       long: new FormControl("", [Validators.required]),
-      managerstore: new FormControl(""),
+      // managerstore: new FormControl(""),
       note: new FormControl(""),
     })
     this.addressService.getProvinces().subscribe(res=>{
       this.provinces = res;
     });
-    
+
   }
   selectEventCity(item : any) {
     // do something with selected item
-    
-    this.addressService.getDistricts().subscribe(data =>{
-      let d = data as any[];
-      this.district = [...d.filter(a=> a.province_code === item.code)];
-    });
+    this.district = item.districts
+
   }
   inputClearedCity(e: any){
     this.district = [];
     this.inputClearedDistrict(e);
-    
+
   }
   inputClearedDistrict(e:any){
     this.ward=[];
   }
   selectEventDistrict(item : any){
-    this.addressService.getWard().subscribe(data =>{
-      let w = data as any[];
-      this.ward = [...w.filter(a=> a.district_code === item.code)];
-      
-    })
+    this.ward = item.wards
+
   }
   selectEventWard(item : any){
-    
+
   }
   selectEventManager(item : any){
-    
+
   }
   // onChangeSearch(search: string) {
   //   // fetch remote data from here
@@ -83,11 +78,10 @@ export class AddStoreComponent implements OnInit {
   clickSaveStore(addstoreFormValue : any){
     const store = {...addstoreFormValue};
     const addressStore = store.street + ','+ store.ward.name +', '+ store.district.name+', ' + store.city.name;
-    
+
     const newStore = {
       "namestore" : store.namestore as string,
       "address": addressStore,
-      "manager" : store.manager,
       "note" : store.note,
       "coordinates": [store.lat, store.long],
       "create_user": localStorage.getItem("username")?.toString(),

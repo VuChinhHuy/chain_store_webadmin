@@ -20,7 +20,7 @@ export class PartnerService {
   getAllPartner()
   {
     return this.httpClient.get(this.createCompleteRoute(this.urlPartner,environment.urlAddress),{headers: this.headers});
-      
+
   }
   addPartner(body: any)
   {
@@ -28,5 +28,13 @@ export class PartnerService {
   }
   deletePartner(id:string){
     return this.httpClient.delete(this.createCompleteRoute(this.urlPartner+"/" +id,environment.urlAddress),{headers: this.headers});
+  }
+  updatePartner(id:string, data : any)
+  {
+    return this.httpClient.put(this.createCompleteRoute(this.urlPartner+"/" +id,environment.urlAddress),data,{headers: this.headers});
+  }
+  getPartner(id:string)
+  {
+    return this.httpClient.get(this.createCompleteRoute(this.urlPartner+"/"+id,environment.urlAddress),{headers: this.headers});
   }
 }

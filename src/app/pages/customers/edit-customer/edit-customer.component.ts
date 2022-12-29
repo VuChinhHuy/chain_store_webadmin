@@ -20,7 +20,8 @@ export class EditCustomerComponent implements OnInit {
     note: '',
     phone: '',
     address: '',
-
+    update_at: '',
+    update_user : '',
   };
   messagefirst_name = '';
   messagelast_name = '';
@@ -31,7 +32,7 @@ export class EditCustomerComponent implements OnInit {
   constructor(
     private customerServicee: CustomerService,
     private route: ActivatedRoute,
-
+    private datepipe : DatePipe,
     private toastrService: ToastrService) { }
 
   ngOnInit(): void {
@@ -51,6 +52,8 @@ export class EditCustomerComponent implements OnInit {
             note: data.note,
             phone: data.phone,
             address: data.address,
+            update_at : this.datepipe.transform( Date(),"yyyy-MM-dd")!.toString(),
+            update_user : localStorage.getItem("username")!
           };
         },
         (error: any) => {

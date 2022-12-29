@@ -1,0 +1,56 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      </div>
+</div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="card bg-secondary shadow">
+    <div class="modal-body">
+    <div class="row">
+        <div class="col-7">
+            <div class="form-group">
+                <label for="name_partners">Tên đối tác </label><span class="text-red">*</span>
+                <input type="text" class="form-control" id="name_partner" placeholder="Choco - Linh Trung" [(ngModel)]="partner.name">
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="logo">Logo </label>
+                        <input type="file" class="form-control" id="logo" placeholder="Choco - Linh Trung" accept="image/*" (change)="processFile($event)" >
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <img [src]="image" class="rounded-circle" width="70" height="70" >
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <hr class="my-4" />
+    <!-- Address -->
+    <div class="form-group">
+      <label for="note">Địa chỉ</label>
+      <textarea class="form-control" id="note" rows="3" [(ngModel)]="partner.address"></textarea>
+    </div>
+
+
+
+    <hr class="my-4" />
+    <div class="form-group">
+      <label for="note">Ghi chú</label>
+      <textarea class="form-control" id="note" rows="3" [(ngModel)]="partner.note"></textarea>
+    </div>
+  </div>
+
+
+
+    <div class="modal-footer">
+      <button type="submit" (click)="save()" class="btn btn-primary">Lưu lại</button>
+      <button type="button" class="btn btn-secondary" (click)="unsave()" data-dismiss="modal">Huỷ</button>
+    </div>
+  </div>
+</div>

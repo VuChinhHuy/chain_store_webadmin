@@ -17,6 +17,7 @@ import { ProfileComponent } from '../../pages/staff/profile/profile.component';
 import { AddProductComponent } from '../../pages/products/add-product/add-product.component';
 import { ImportProductComponent } from '../../pages/inventory-manager/import-product/import-product.component';
 import { InventoryComponent } from '../../pages/inventory-manager/inventory/inventory.component';
+import { EditPartnerComponent } from '../../pages/partners/edit-partner/edit-partner.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -26,6 +27,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'products/category',      component: CategoryComponent},
     { path: 'products/:idcategory/add-product',      component: AddProductComponent},
     { path: 'partners',      component: PartnersComponent},
+    { path: 'partners/edit/:id',      component: EditPartnerComponent},
     { path: 'oders',      component: OrdersComponent},
     { path: 'OrderDetail/:id',      component: EditOrderComponent},
     { path: 'customers',      component: CustomersComponent},

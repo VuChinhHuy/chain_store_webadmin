@@ -13,6 +13,7 @@ import {TokenStorageService} from './service/token-storage.service';
 import { JwtModule } from "@auth0/angular-jwt";
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 
 
@@ -25,8 +26,6 @@ export function tokenGetter() {
     AppComponent,
     AuthLayoutComponent,
     AdminLayoutComponent,
-
-
 
 
   ],
@@ -46,6 +45,9 @@ export function tokenGetter() {
         disallowedRoutes: []
       }
   }),
+  NgxDaterangepickerMd.forRoot(
+    {separator: ' - ',
+    applyLabel: 'Okay',}),
   ToastrModule.forRoot(
     {
       timeOut: 1000,

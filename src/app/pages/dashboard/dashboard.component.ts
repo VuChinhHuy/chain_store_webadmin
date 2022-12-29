@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Chart, registerables } from 'chart.js';
 import { DashboardService } from 'src/app/service/dashboard.services';
+// ngx datepickerange
+import { LocaleConfig, LocaleService } from 'ngx-daterangepicker-material';
 
-
-import { DatePipe, formatDate } from '@angular/common';
+import dayjs from 'dayjs';
 // range picker
 // create a chart of revenue statistics by invoice in angular 12
 // https://www.freakyjolly.com/angular-material-date-time-range-selection-picker-tutorial/
@@ -13,7 +13,7 @@ import { DatePipe, formatDate } from '@angular/common';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  providers: []
+  providers: [LocaleService]
 })
 export class DashboardComponent implements OnInit {
   // Revenue chart years
@@ -35,20 +35,33 @@ export class DashboardComponent implements OnInit {
   profitLastMonth: any;
   TopProduct: any;
   Descen: any;
-
+  labelProfitFS: any;
+  dataprofitFS: any;
+  nameFS: any;
+  RevenueCFS: any;
+  chart_dataset: any = [];
 
   // picker ranger
   constructor(private dashboardService: DashboardService) {
+    Chart.register(...registerables);
 
+    this.ranges = {
+      'Today': [dayjs(), dayjs()],
+      'Yesterday': [dayjs().subtract(1, 'days'), dayjs().subtract(1, 'days')],
+      'Last 7 Days': [dayjs().subtract(6, 'days'), dayjs()],
+      'Last 30 Days': [dayjs().subtract(29, 'days'), dayjs()],
+      'This Month': [dayjs().startOf('month'), dayjs().endOf('month')],
+      'Last Month': [dayjs().subtract(1, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')]
+    }
   }
   //console.log(this.selected.endDate.format("DD-MMMM-YY"));
 
   ngOnInit() {
-    Chart.register(...registerables);
     this.getRevenueByYear();
     this.getRevenueByWeek();
     this.GetCalculateLastMonth();
     this.GetBetSellingProduct();
+    this.GetRevenueForStore();
   }
   GetCalculateLastMonth() {
     this.dashboardService.GetCalculateLastMonth()
@@ -115,6 +128,60 @@ export class DashboardComponent implements OnInit {
     }
 
   }
+  GetRevenueForStore() {
+    this.dashboardService.GetRevenueForStore()
+      .subscribe(
+        (Status: any) => {
+          this.RevenueCFS = Status;
+          this.labelProfitFS = Status.map(function (obj: any) {
+            return obj.years;
+          });
+          this.dataprofitFS = Status.map(function (obj: any) {
+            return obj.total;
+          });
+          this.nameFS = Status.map(function (obj: any) {
+            return obj.storeName;
+          });
+          this.RevenueChartForStore();
+        },
+        (error: any) => {
+          console.log(error);
+        });
+  }
+  getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  RevenueChartForStore() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+
+    var states: any = Object.values(this.RevenueCFS);
+    for (let i = 1; i < states.length + 1; i++) {
+      this.chart_dataset.push({
+        label: states[i - 1].storeName[0],
+        data: [states[i - 1].total],
+        backgroundColor: color += letters[Math.floor(Math.random() * 16)],
+        borderColor: color += letters[Math.floor(Math.random() * 16)],
+        fill: false,
+        borderWidth: 1
+      });
+    }
+    console.log(this.chart_dataset);
+    var myChartWeek = new Chart("myChartForStore", {
+      type: 'bar',
+      data: {
+        datasets: this.chart_dataset
+        //labels: ['2022', '2022'],
+      },
+      options: {
+      }
+    });
+  }
   getRevenueByWeek() {
     // this.dashboardService.getRevenueByWeek(this.dates, this.datee).subscribe(searchData => this.revenueWeek = searchData);
     this.dashboardService.getRevenueByWeek(this.dates, this.datee)
@@ -150,7 +217,13 @@ export class DashboardComponent implements OnInit {
           borderColor: "#0196FD",
           borderWidth: 1
         },
-        ]
+        {
+          label: 'Doanh số',
+          data: this.dataProductNumber,
+          backgroundColor: "#FFAF00",
+          borderColor: "#FFAF00",
+          borderWidth: 1
+        }]
       },
       options: {
         // scales: {
@@ -167,7 +240,7 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: this.labelProfitWeek,
         datasets: [{
-          label: 'Doanh thu',
+          label: 'Lợi nhuận',
           data: this.dataprofitWeek,
           //backgroundColor:"#0196FD",
           borderColor: "#0196FD",

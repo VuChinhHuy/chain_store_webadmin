@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -25,6 +26,7 @@ import { ProfileComponent } from '../../pages/staff/profile/profile.component';
 import { AddProductComponent } from '../../pages/products/add-product/add-product.component';
 import { ImportProductComponent } from '../../pages/inventory-manager/import-product/import-product.component';
 import { InventoryComponent } from '../../pages/inventory-manager/inventory/inventory.component';
+import { EditPartnerComponent } from '../../pages/partners/edit-partner/edit-partner.component';
 
 
 
@@ -42,6 +44,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     ClipboardModule,
     AutocompleteLibModule,
     ReactiveFormsModule,
+    NgxDaterangepickerMd
   ],
   declarations: [
     DashboardComponent,
@@ -51,6 +54,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     AddStoreComponent,
     ProductsComponent,
     PartnersComponent,
+    EditPartnerComponent,
     OrdersComponent,
     EditOrderComponent,
     CustomersComponent,

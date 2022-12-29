@@ -30,28 +30,28 @@
                                 formControlName ="coor"
                                 [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
-        
+
                             <ng-template #itemTemplate let-item>
                                 <a [innerHTML]="item.name"></a>
                             </ng-template>
-        
+
                             <ng-template #notFoundTemplate let-notFound>
                                 <div [innerHTML]="notFound"></div>
                             </ng-template>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="row justify-content-center">                        
-                            
+                        <div class="row justify-content-center">
+
                             <img [src]="image" class="rounded-circle" width="200" height="200" >
-                            
+
                         </div>
                             <div class= "d-flex justify-content-center align-items-end">
                                 <input  type="file" class="btn btn-sm btn-info mr-4" accept="image/*" (change)="processFile($event)">
                             </div>
                     </div>
                 </div>
-               
+
                 <!-- Profile -->
                 <hr class="my-4" />
                 <h6 class="heading-small text-muted mb-4">Thông tin</h6>
@@ -155,11 +155,11 @@
                 </div>
 
 
-            
+
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Lưu lại</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clickunsave()">Huỷ</button>
         </div>
     </form>
     </div>

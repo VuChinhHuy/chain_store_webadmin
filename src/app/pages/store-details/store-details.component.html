@@ -433,7 +433,7 @@
                       </div>
                       </th>
                       <th (click)="clickChooseStaff(staff.id)">
-                        {{staff.birthday}}
+                        {{staff.birthday | date : 'dd/MM/yyyy' }}
                       </th>
                       <th (click)="clickChooseStaff(staff.id)">
                         {{staff.phone}}
@@ -442,7 +442,7 @@
                         {{staff.address}}
                       </th>
                     <td class="td-actions">
-                        <button class="btn btn-icon btn-sm btn-danger"  type="button" (click)="deleteStaff(staff.id, staff.aaccountId)"><i class="ni ni-fat-remove pt-1"></i>
+                        <button class="btn btn-icon btn-sm btn-danger"  type="button" (click)="deleteStaff(staff.id, staff.accountId)"><i class="ni ni-fat-remove pt-1"></i>
                         </button>
                     </td>
                   </tr>

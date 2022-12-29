@@ -18,15 +18,15 @@ export class StoreService {
     getStore()
     {
       return this.httpClient.get(this.createCompleteRoute("store",environment.urlAddress),{headers: this.headers});
-        
+
     }
 
-    
+
 
     public getCoordinates(address :string)
     {
       // var url = 'https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(address)+'&format=geojson';
-  
+
       // this.httpClient.get<any>(url).subscribe(data=>{
       //   var fut = data.features;
       //   console.log(fut);
@@ -46,5 +46,6 @@ export class StoreService {
   {
     return this.httpClient.post(this.createCompleteRoute("store",environment.urlAddress), body,{headers: this.headers});
   }
+
 
 }

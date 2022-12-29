@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, NgModule } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from 'src/app/service/customer.service';
@@ -24,10 +25,11 @@ export class AddCustomerComponent implements OnInit {
     address: '',
     create_user: '',
     update_user: '',
-    create_at : new Date()
+    create_at : ""
   };
   isCustomerAdded = false;
-  constructor(private customerService: CustomerService,private toastrService: ToastrService) { }
+
+  constructor(private customerService: CustomerService,private toastrService: ToastrService,private datepipe : DatePipe,) { }
 
   ngOnInit(): void {
 
@@ -93,7 +95,8 @@ export class AddCustomerComponent implements OnInit {
       address: '',
       create_user: '',
       update_user: '',
-      create_at : new Date()
+      create_at : this.datepipe.transform( Date(),"yyyy-MM-dd")!.toString()
+
     };
     this.messagefirst_name = '';
     this.messagelast_name = '';

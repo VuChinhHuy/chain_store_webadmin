@@ -35,5 +35,10 @@ export class ImportInventoryService {
     return this.httpClient.get(this.createCompleteRoute(this.urlPartner,environment.urlAddress)+"/inventory/"+idStore as string,{headers: this.headers});
 
   }
+  // update real count
+  updateInventManager(idStore : any , data : any)
+  {
+    return this.httpClient.put(this.createCompleteRoute(this.urlPartner,environment.urlAddress)+"/updateInventoryManager/"+ idStore as string, data, { headers: this.headers });
+  }
 
 }

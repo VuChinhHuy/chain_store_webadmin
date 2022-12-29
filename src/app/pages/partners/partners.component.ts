@@ -46,26 +46,19 @@ export class PartnersComponent implements OnInit {
   }
   selectEventCity(item : any) {
     // do something with selected item
-    
-    this.addressService.getDistricts().subscribe(data =>{
-      let d = data as any[];
-      this.district = [...d.filter(a=> a.province_code === item.code)];
-    });
+    this.district = item.districts
+
   }
   inputClearedCity(e: any){
     this.district = [];
     this.inputClearedDistrict(e);
-    
+
   }
   inputClearedDistrict(e:any){
     this.ward=[];
   }
   selectEventDistrict(item : any){
-    this.addressService.getWard().subscribe(data =>{
-      let w = data as any[];
-      this.ward = [...w.filter(a=> a.district_code === item.code)];
-      
-    })
+    this.ward = item.wards
   }
   processFile(event :any)
   {
@@ -77,7 +70,7 @@ export class PartnersComponent implements OnInit {
       }
     }
     console.log(btoa(this.image));
-  
+
   }
 
   clickSavePartnerForm(addFormValue : any)
@@ -96,7 +89,7 @@ export class PartnersComponent implements OnInit {
     this.partnerService.addPartner(partner).subscribe({
       next : (res : any) => {
         this.ngOnInit();
-        
+
         this.toastService.success('Thêm thành công cửa hàng mới!');
       },
       error:(err: HttpErrorResponse)=>{
@@ -105,6 +98,25 @@ export class PartnersComponent implements OnInit {
       }
     })
   }
-  
+  toEdit(id: string)
+  {
+    this.router.navigate(["partners/edit",id]);
+  }
+
+  deleted(id:string)
+  {
+
+    this.partnerService.deletePartner(id).subscribe(
+      {
+        next: (res:any)=>{
+          this.partnerService.getAllPartner().subscribe(res=>
+            {this.listPartner = res});
+        }
+        ,error : (e:any)=>{
+          this.toastService.error("Xoá không thành công")
+        }
+      }
+    );
+  }
 
 }

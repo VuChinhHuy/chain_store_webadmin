@@ -44,7 +44,7 @@ export class StaffService {
   }
   public getStaff(idStore: string)
   {
-    return this.httpClient.get(this.createCompleteRoute("staff?idstore="+idStore ,environment.urlAddress),{headers: this.headers    });
+    return this.httpClient.get(this.createCompleteRoute("staff/idstore/"+idStore ,environment.urlAddress),{headers: this.headers    });
 
   }
 

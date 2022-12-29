@@ -182,11 +182,11 @@
                               </div>
                         </td>
                         <td class="td-actions">
-                            <button class="btn btn-sm btn-warning btn-icon"  type="button"  ><i class="ni ni-settings-gear-65 pt-1"></i>
+                            <button class="btn btn-sm btn-warning btn-icon" (click)="toEdit(partner.id)" type="button"  ><i class="ni ni-settings-gear-65 pt-1"></i>
                             </button>
                         </td>
                         <td class="td-actions">
-                            <button class="btn btn-icon btn-sm btn-danger"  type="button"><i class="ni ni-fat-remove pt-1"></i>
+                            <button class="btn btn-icon btn-sm btn-danger"  (click)="deleted(partner.id)" type="button"><i class="ni ni-fat-remove pt-1"></i>
                             </button>
                         </td>
 

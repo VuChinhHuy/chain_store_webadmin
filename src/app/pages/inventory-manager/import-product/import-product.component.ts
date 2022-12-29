@@ -58,8 +58,34 @@ export class ImportProductComponent implements OnInit {
   {
     if(this.productImport == null)
       this.productImport = [];
-    if((this.productSelect != null || this.productSelect != undefined) && (this.count != null || this.count != undefined))
+    if((this.productSelect != null || this.productSelect != undefined) && (this.count != null || this.count != undefined)){
+      if(this.productImport.length > 0)
+        {
+          var i;
+          for(var item of this.productImport)
+          {
+            if(item.product.id === this.productSelect.id)
+            {
+              i = item;
+              break;
+            }
+          }
+          if(i != null || i != undefined){
+            if(i.product.id === this.productSelect.id)
+            {
+              this.productImport[this.productImport.indexOf(item)].count =  this.productImport[this.productImport.indexOf(item)].count + this.count;
+            }
+          }
+          else
+          {
+            this.productImport.push({product :this.productSelect,count: this.count});
+          }
+        }
+      else
       this.productImport.push({product :this.productSelect,count: this.count});
+
+
+    }
     else
       this.toastrService.error("Nhập đủ thông tin");
     this.count = null;
@@ -85,6 +111,7 @@ export class ImportProductComponent implements OnInit {
   }
   saveImportInventory()
   {
+
     const importInventory =
     {
       "idStore": this.idStore,
@@ -105,6 +132,7 @@ export class ImportProductComponent implements OnInit {
 
       }
     )
+
     console.log(this.productImport);
   }
   exportExcel()

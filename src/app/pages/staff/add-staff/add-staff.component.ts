@@ -10,6 +10,7 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { AnimationStyleMetadata } from '@angular/animations';
 import { AuthService } from 'src/app/service/auth.service';
 import { Account } from 'src/app/models/account.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-staff',
@@ -39,6 +40,7 @@ export class AddStaffComponent implements OnInit {
     private staffService: StaffService,
     private accountService : AuthService,
     private router: Router,
+    private datepipe : DatePipe,
     private toastrService: ToastrService,
     private acivteRoute: ActivatedRoute) { }
 
@@ -70,11 +72,8 @@ export class AddStaffComponent implements OnInit {
   }
   selectEventCity(item : any) {
     // do something with selected item
+    this.district = item.districts
 
-    this.addressService.getDistricts().subscribe(data =>{
-      let d = data as any[];
-      this.district = [...d.filter(a=> a.province_code === item.code)];
-    });
   }
   inputClearedCity(e: any){
     this.district = [];
@@ -85,11 +84,7 @@ export class AddStaffComponent implements OnInit {
     this.ward=[];
   }
   selectEventDistrict(item : any){
-    this.addressService.getWard().subscribe(data =>{
-      let w = data as any[];
-      this.ward = [...w.filter(a=> a.district_code === item.code)];
-
-    })
+    this.ward = item.wards
   }
   selectEventWard(item : any){
 
@@ -127,16 +122,15 @@ export class AddStaffComponent implements OnInit {
     this.router.navigate(["chain-store/detail/",this.idStore]);
   }
   addStaff = (addStaffForm :any)=>{
+    console.log(new Date().toLocaleString())
     const staff ={...addStaffForm};
     const account: Account  = {
       username: staff.username,
       password: staff.password,
       role: staff.coor.role,
-
       create_user: localStorage.getItem("username")?.toString() as string,
       update_user: ""
   }
-  console.log(account);
   this.accountService.addAccount(account).subscribe({
     next: (res:any)=>{
       const staffNew = {
@@ -147,19 +141,25 @@ export class AddStaffComponent implements OnInit {
         "address": staff.no_home + ','+ staff.ward.name +', '+ staff.district.name+', ' + staff.city.name,
         "accountId":res.id as string,
         "storeId" : this.idStore as string,
-        "create_at" : Date(),
+        "create_at" : this.datepipe.transform( Date(),"yyyy-MM-dd"),
         "create_user": localStorage.getItem("username")?.toString(),
         "update_user": ""
       } ;
-      console.log(staffNew);
-      this.staffService.addStaff(staffNew).subscribe({
+      const profile ={
+        "account" :{
+          role: staff.coor.role
+        },
+        "staff" : staffNew
+      }
+      console.log(profile);
+      this.staffService.addStaff(profile).subscribe({
         next: (staffsucces:any)=>{
           this.clickunsave();
           this.toastrService.success('Thêm thành công nhân viên '+staffsucces.fullname+' mới!');
         },
         error:(err: HttpErrorResponse)=>{
           console.log(err);
-          this.accountService.deleteAccount(res.id as string);
+          this.accountService.deleteAccount(res.id as string).toPromise();
           this.toastrService.error("Thêm không thành công");
         }
       });
